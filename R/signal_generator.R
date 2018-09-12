@@ -1,3 +1,4 @@
+#' @importFrom magrittr %>%
 #' @export
 spfda.sample <- new.env()
 
