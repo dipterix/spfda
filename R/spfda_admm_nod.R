@@ -93,13 +93,13 @@ spfda_admm = function(Y, X, W = NULL, D = NULL,
     return(re)
   }else{
     for(ii in seq_len(max_iter)){
-      # zeta = alpha * apply(IB, 2, function(b){
-      #   apply(gamma, 1, function(g){
-      #     sum(abs(b*g))
-      #   })
-      # })^(alpha-1)
-      # D = zeta %*% t(IB)
-      D = ((abs(gamma) %*% IB)^(alpha-1)) %*% t(IB)
+      zeta = alpha * apply(IB, 2, function(b){
+        apply(gamma, 1, function(g){
+          sum(abs(b*g))
+        })
+      })^(alpha-1)
+      D = zeta %*% t(IB)
+      # D = alpha * ((abs(gamma) %*% IB)^(alpha-1)) %*% t(IB)
 
       re = spfda_admm(Y = Y, X = X, D = D, alpha = 1, lambda = lambda, nknots = nknots, max_iter = 5)
       gamma = re$gamma
