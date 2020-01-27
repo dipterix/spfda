@@ -11,7 +11,7 @@ spfda <- function(
   # TODO: add cv and CI into the function
   ...
 ){
-  stopifnot(alpha > 0 && alpha <= 1, 'alpha must be in (0, 1]')
+  stopifnot(alpha > 0 && alpha <= 1)
 
   if(alpha == 1){
     res = fda_glasso(Y = Y, X = X, time = time, nknots = nsp, lambda = lambda, W = W, D = D, init = init, max_iter = max_iter, ord = ord, ...)
@@ -24,17 +24,17 @@ spfda <- function(
 
 
   # Result need to be edited
-  list(gamma = gamma, eta = eta, B = B, mse = (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2))))
+  # list(gamma = gamma, eta = eta, B = B, mse = (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2))))
 
   env = new.env(parent = baseenv())
   env$gamma = res$eta
-  env$knots = c(rep(time[1], ord-1), seq(time[1], time[length(time)], length.out = nknots - ord), rep(time[length(time)], ord-1))
+  env$knots = c(rep(time[1], ord-1), seq(time[1], time[length(time)], length.out = nsp - ord), rep(time[length(time)], ord-1))
   env$generate_splines = function(.time){
     .time %?<-% time
-    return(splineDesign(knots, .time, ord = ord))
+    return(t(splineDesign(env$knots, .time, ord = ord)))
   }
   env$B = res$B
-  env$error = re$mse
+  env$error = res$mse
   env$predict = function(new_data, .time = NULL){
     B = env$generate_splines(.time)
     new_data %*% env$gamma %*% B
@@ -43,5 +43,18 @@ spfda <- function(
     env$gamma %*% env$generate_splines(.time)
   }
 
+  env$raw = res
+  env$X = X
+  env$Y = Y
+  env$time = time
+  env$W = W
+
+  env$K = nsp
+  env$lambda = lambda
+  env$alpha = alpha
+  env$initial_gamma = init
+  env$max_iter = max_iter
+
+  class(env) = c('spfda.model', 'environment')
   env
 }

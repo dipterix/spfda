@@ -18,7 +18,7 @@ fda_cv <- function(Y, X, ..., nfold = 5, method = 'fda_bridge'){
 fda_bridge_cb <- function(Y, X, ..., nsamp = 1000){
   n = nrow(Y)
   args = list(...)
-  replicate(nsamp, {
+  future.apply::future_replicate(nsamp, {
     idx = sample(n, n, replace = T)
     Y_sub = Y[idx, ]
     X_sub = X[idx, ]
@@ -31,7 +31,7 @@ fda_bridge <- function(
   Y, X, time = seq(0, 1, length.out = ncol(Y)),
   nknots = 100, lambda = 0.1, alpha = 0.1,
   W = NULL, D = NULL, init = NULL, ord = 4,
-  max_iter = 50, ...){
+  max_iter = 50, CI = FALSE, ...){
 
   # Initialize params
   n = nrow(Y)
@@ -52,7 +52,7 @@ fda_bridge <- function(
 
   # ------------ A1 ------------
   xtx = crossprod(X, X)
-  ident_p = diag(1, p)
+  ident_p = diag(10, p)
 
   xty = crossprod(X, Y)
   wwt = tcrossprod(W, W)
@@ -76,20 +76,21 @@ fda_bridge <- function(
   # ------------ A4 ------------
   last_mse = Inf
   for(ii in seq_len(max_iter)){
-    rho = rhos[ii]
+    rho = rhos[ii] # * (lambda * ii / max_iter)
     Z = Z0 + rho
 
     # ------------ A4.1 ------------
     D = apply(abs(gamma), 1, function(g){
-      tmp = (colSums(IB * g)^(alpha - 1)) * t(IB)
-      tmp[!is.finite(tmp)] = 0
-      colSums(tmp)
+      tmp = (colSums(IB * g))
+      tmp[tmp > 0] = tmp[tmp > 0]^(alpha - 1)
+      #tmp[!is.finite(tmp)] = 0
+      tmp %*% t(IB)
     })
-    D = t(D)
+    D = alpha * t(D)
 
     # ------------ A4.2 ------------
     eta = xi = gamma; theta = array(0, dim(gamma))
-    for(m in 1:5){
+    for(m in 1:ifelse(max_iter == ii, 100, 5)){
       xi = t(V) %*% ((V %*% xty %*% wwt %*% t(B) %*% U - theta +
                        rho * V %*% eta %*% U) / Z) %*% t(U)
       eta = xi + 1/rho * t(V) %*% theta %*% t(U)
@@ -97,12 +98,12 @@ fda_bridge <- function(
       eta_minus = eta + lambda/rho * D
       eta = eta_plus * (eta_plus > 0) + eta_minus * (eta_minus < 0)
 
-      theta = theta + V %*% (xi - eta) %*% U
+      theta = theta + rho * V %*% (xi - eta) %*% U
 
 
     }
 
-    gamma = xi
+    gamma = eta
 
     mse = (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2)))
     if(last_mse < mse * 0.8){
@@ -110,11 +111,135 @@ fda_bridge <- function(
     }
   }
 
+  re_gamma = gamma
+  if(CI){
+
+    tmp = gamma
+    tmp[tmp == 0] = runif(sum(tmp == 0), min = -1e-7, max = 1e-7)
+    DD = U %*% t(theta) %*% V
+    DD = t(DD) * sign(gamma) * lambda / tmp
+    # DD[is.infinite(DD)] = 0
+    residual = Y - X %*% solve(t(X) %*% X) %*% t(X) %*% Y %*% t(B) %*% solve(B %*% t(B)) %*% B
+    # residual = Y - X %*% gamma %*% B
+    sigma = cov(residual)
+
+    p = dim(X)[2]
+    K = dim(gamma)[2]
+
+    # for covariance
+    s = abs(re_gamma) > 0
+
+    idjk = which(abs(tmp) > 0, arr.ind = T)
+
+    P = apply(idjk, 1, function(idx){
+      j = idx[1]; k = idx[2]
+      p = xtx[,j, drop = F] %*% bwwb[k, , drop = F]
+      d = DD[j,k]
+      if( is.finite(d) && d > 0 ){
+        p[j,k] = p[j,k] + d
+      }
+
+      # print(DD[j,k] / gamma[j, k])
+      # if(p[j,k] > 1000){
+      #   print(idx)
+      # }
+      apply(idjk, 1, function(idy){
+        p[idy[1], idy[2]]
+      })
+      # as.vector(t(p))[as.vector(t(s))]
+    });
+
+    # image.plot(P)
+    # t(P) %*% ? %*% P = Q
+    P_solve = solve(P)
+
+
+    wwtbt = W %*% t(B %*% W)
+    Q = apply(idjk, 1, function(idx1){
+      j1 = idx1[1]; k1 = idx1[2]
+      q1 = wwtbt[, k1, drop = F]
+      apply(idjk, 1, function(idx2){
+        j2 = idx2[1]; k2 = idx2[2]
+        q2 = wwtbt[, k2, drop = F]
+
+        t(q1) %*% sigma %*% q2 * (xtx[j1, j2])
+      })
+    })
+
+    avar_gamma = t(P_solve) %*% Q %*% (P_solve)
+    idxx = idjk[,2] + (idjk[,1]-1) * K
+    avar_g = matrix(0, nrow = p*K, ncol = p*K)
+    # avar_g[as.vector(t(s)),as.vector(t(s))] = avar_gamma
+    for(ii in seq_along(idxx)){
+      avar_g[idxx[ii], idxx] = avar_gamma[ii, ]
+    }
+
+    idjk = which(!s, arr.ind = T)
+    idxx = idjk[,2] + (idjk[,1]-1) * K
+    # avar_g[as.vector(t(s)),as.vector(t(s))] = avar_gamma
+    # ss = mean(re_gamma == 0); a = 0
+    # ss = a * ss / (1 + ss * (a-1)); ss = sqrt(1 - ss)
+    # avar_g[idxx, ] = avar_g[idxx, ] * ss
+    # avar_g[, idxx] = avar_g[, idxx] * ss
+
+    # s1 = as.vector(t(abs(gamma) > 0))
+    # vars = eigen(avar_g[s1, s1])$value
+    # vars[vars < 0] = 0
+    # min_eigen = min(vars[cumsum(vars) / sum(vars) > 0.99999][1], 1)
+    #
+    #
+    # ee = eigen(avar_g)
+    # ee$values = ee$values - min(ee$values) + min_eigen
+    #
+    # avar_g = (ee$vectors) %*% diag(ee$values) %*% t(ee$vectors)
+
+
+    # get var for coef
+    f_sd = t(sapply(seq_len(p), function(j){
+      idx = seq_len(K) + (j-1) * K
+      cov = t(B) %*% avar_g[idx, idx] %*% B
+
+      # ee = eigen(cov)
+      # vars = ee$value
+      # d = which(cumsum(vars) / sum(vars) > 0.999)[1]
+      #
+      # vars[-(1:d)] = vars[d]
+      # cov = (ee$vectors) %*% diag(vars) %*% t(ee$vectors)
+      #
+      #
+      # tmp = mvtnorm::rmvnorm(1000, sigma = cov)
+      #
+      # # calculate simultanous CI
+      # sds = apply(tmp, 2, sd)
+      #
+      # quantile(t(tmp) / sds, 0.975) * sds
+
+      v = diag(cov)
+      # plot(sqrt(diag(cov)))
+      sqrt(v)
+    }))
+
+    # matplot(t(f_sd), type = 'l')
+
+
+  }else{
+    f_sd = avar_g = NULL
+  }
+
+
+
   list(
-    gamma = gamma,
+    gamma = re_gamma,
     eta = eta,
+    theta = theta,
+    rho = rho,
+    D = D,
+    Vt = V,
+    Ut = U,
     B = B,
     mse = (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2))),
-    niter = ii
+    niter = ii,
+    avar_g = avar_g,
+    f_sd = f_sd
   )
 }
