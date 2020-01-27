@@ -1,5 +1,5 @@
 #' @export
-plot_coef = function(coef, se = NA, ylim, beta){
+plot_coef = function(coef, se = NA, ylim, beta, time){
   layout(matrix(c(1,1,1,2,3,4), nrow = 2, byrow = T), heights = c(lcm(1.5), 1))
   par(mar=c(0,0,0,0))
   plot.new()
@@ -9,7 +9,9 @@ plot_coef = function(coef, se = NA, ylim, beta){
   par(mar=c(3.1,2.5,3.1,1.1))
   # coef = res$get_coef(); zz = 2
   # se = res$raw$f_sd
-  time = res$time
+  if(missing(time)){
+    time = seq(0,1,length.out = ncol(coef))
+  }
 
   if(missing(ylim)){
     yat = pretty(range(coef, coef + se, coef - se, na.rm = TRUE))
@@ -17,10 +19,7 @@ plot_coef = function(coef, se = NA, ylim, beta){
   }else{
     yat = pretty(ylim)
   }
-  if(missing(beta)){
-    flm = lm(res$Y ~ res$X-1)
-    beta = flm$coefficients
-  }
+
 
   for(ii in 1:3){
     # coef = res$get_coef()
@@ -29,7 +28,10 @@ plot_coef = function(coef, se = NA, ylim, beta){
       time, ylim,
       main = eval(parse(text = sprintf('bquote(beta[%d])', ii))), cex.main = 1.8)
     abline(h = 0, lty=1, col = 'grey80')
-    points(time, beta[ii,], type='l', lty = 2, col = 'grey80')
+    if(!missing(beta)){
+      points(time, beta[ii,], type='l', lty = 2, col = 'grey80')
+    }
+
     # points(time, flm$coefficients[ii,], type='l', lty = 2, col = 'grey80')
     rutabaga::ebar_polygon(time, coef[ii,], se[ii, ] * 2 , col = ii, lwd = 2, border = 'black', alpha = 50)
 
@@ -147,7 +149,7 @@ get_weights = function(X, Y, b = 0.1, parts = list(c(0, 0.4), c(0.4,0.8), c(0.8,
   sigma_t = cov(rands)
   sigma_t[!sigma_t_sel] = 0
 
-  assign('sigma_t', sigma_t, envir = globalenv())
+  # assign('sigma_t', sigma_t, envir = globalenv())
 
   # plot(diag(sigma_t))
   # plot(apply(sigma_t, 2, var))
