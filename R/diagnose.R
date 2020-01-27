@@ -1,4 +1,5 @@
-plot_coef = function(res, ylim, beta){
+#' @export
+plot_coef = function(coef, se = NA, ylim, beta){
   layout(matrix(c(1,1,1,2,3,4), nrow = 2, byrow = T), heights = c(lcm(1.5), 1))
   par(mar=c(0,0,0,0))
   plot.new()
@@ -6,11 +7,12 @@ plot_coef = function(res, ylim, beta){
   # mtext('95% Joint CI, W', 1, line = -1, cex = 2)
 
   par(mar=c(3.1,2.5,3.1,1.1))
-  coef = res$get_coef(); zz = 2
+  # coef = res$get_coef(); zz = 2
+  # se = res$raw$f_sd
   time = res$time
 
   if(missing(ylim)){
-    yat = pretty(range(coef, coef + res$raw$f_sd, coef - res$raw$f_sd, na.rm = TRUE))
+    yat = pretty(range(coef, coef + se, coef - se, na.rm = TRUE))
     ylim = range(yat)
   }else{
     yat = pretty(ylim)
@@ -29,13 +31,14 @@ plot_coef = function(res, ylim, beta){
     abline(h = 0, lty=1, col = 'grey80')
     points(time, beta[ii,], type='l', lty = 2, col = 'grey80')
     # points(time, flm$coefficients[ii,], type='l', lty = 2, col = 'grey80')
-    rutabaga::ebar_polygon(time, coef[ii,], res$raw$f_sd[ii, ] * zz , col = ii, lwd = 2, border = 'black', alpha = 50)
+    rutabaga::ebar_polygon(time, coef[ii,], se[ii, ] * 2 , col = ii, lwd = 2, border = 'black', alpha = 50)
 
     rutabaga::ruta_axis(1, pretty(time))
     rutabaga::ruta_axis(2, yat)
   }
 }
 
+#' @export
 simulate_data <- function(n = 1000, n_timepoints = 100, seed = 1){
 
   n_coef = 3
@@ -69,11 +72,11 @@ simulate_data <- function(n = 1000, n_timepoints = 100, seed = 1){
   # have some correlation
   junk = sample(n * n_coef, n*2)
   X[junk] = X[junk] + 1
-  base_curve = ((time > 0.8)*3 + (time > 0.4)*2 + (time >= 0))
+  base_curve = ((time > 0.8)*3 + (time > 0.4)*2 + (time >= 0)) / 10
 
   err = t(replicate(n, {
     arima.sim(model=list(ar=c(.9)),n=n_timepoints) * base_curve
-  })) / 5
+  }))
 
   Y = X %*% beta + err
   Y = Y + rnorm(length(Y))
@@ -107,6 +110,7 @@ simulate_data <- function(n = 1000, n_timepoints = 100, seed = 1){
 
 }
 
+#' @export
 get_weights = function(X, Y, b = 0.1, parts = list(c(0, 0.4), c(0.4,0.8), c(0.8,1))){
   flm = lm(Y ~ X)
   E = flm$residuals
@@ -166,6 +170,7 @@ get_weights = function(X, Y, b = 0.1, parts = list(c(0, 0.4), c(0.4,0.8), c(0.8,
 }
 
 # calculate log-likelihood
+#' @export
 logLik.spfda.model <- function (object, ...) {
   res = object$Y - object$predict(object$X)
   W = object$W
@@ -202,7 +207,7 @@ logLik.spfda.model <- function (object, ...) {
 }
 
 
-
+#' @export
 BIC.spfda.model <- function(object, nu = 0.5, ...){
   loglik = logLik.spfda.model(object, ...)
   df = attr(loglik, "df")
