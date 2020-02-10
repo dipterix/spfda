@@ -163,7 +163,7 @@ get_weights = function(X, Y, b = 0.1, parts = list(c(0, 0.4), c(0.4,0.8), c(0.8,
 
   eig = eigen(sigma_t)
   eig$values[eig$values < 1e-4] = 1e-4
-  eig$values = eig$values + max(eig$values) / 10
+  eig$values = eig$values + max(eig$values) / sqrt(length(time)) #10
 
   dd = 1 / (sqrt(eig$values))
   dd = dd/max(dd)
@@ -217,3 +217,48 @@ BIC.spfda.model <- function(object, nu = 0.5, ...){
   pK = attr(loglik, "pK")
   (-2 * loglik + df * log(nobs) + nu * df * log(pK)) / nobs
 }
+
+
+
+# calculate log-likelihood
+#' @export
+logLik.spfda.model <- function (object, ...) {
+  res = object$Y - object$predict(object$X)
+  W = object$W
+  p = ncol(object$X)
+  N = nrow(res)
+  nT = ncol(res)
+  K = object$K
+  coef = object$get_coef()
+
+  if(!is.matrix(W)){
+    W = diag(1, nrow = nT, ncol = nT)
+  }else{
+    res = res %*% W
+  }
+
+  sigma = sqrt(mean(res^2)); sigma = 1
+  # W = W * sigma
+  # res = res / (sigma)
+  log_det_w = determinant(W, logarithm = TRUE)
+
+  # assume each row of res is uncor
+  val <- sum(apply(res, 1, function(x){
+    - sum(x ^ 2) / 2 / sigma^2 - nT * sigma + log_det_w$modulus
+  }))
+
+  # calculate df
+
+  df = sum(coef != 0)
+  df_alt = sum(abs(coef) > 0.001 * max(abs(coef)))
+
+  attr(val, "nall") <- N
+  attr(val, "nobs") <- N
+  attr(val, "df") <- df
+  attr(val, "df_alt") <- df_alt
+  attr(val, "pK") <- p * K
+  class(val) <- "logLik"
+  val
+}
+
+
