@@ -4,3 +4,4 @@
 ^adhoc$
 ^docs$
 ^README\.md$
+^cran-comments\.md$
