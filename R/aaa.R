@@ -1,8 +1,19 @@
-#' @import splines
-#' @import graphics
-#' @import stats
 #' @importFrom grDevices col2rgb
 #' @importFrom grDevices rgb
+#'
+#' @importFrom stats BIC
+#' @importFrom stats logLik
+#' @importFrom stats arima.sim
+#' @importFrom stats cov
+#' @importFrom stats pnorm
+#' @importFrom stats rnorm
+#' @importFrom stats runif
+#'
+#' @importFrom graphics axis
+#' @importFrom graphics matpoints
+#' @importFrom graphics polygon
+#'
+#' @importFrom splines splineDesign
 NULL
 
 str2lang_alt <- function (s) {

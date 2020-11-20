@@ -1,4 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^adhoc$
 ^\.travis\.yml$
+^adhoc$
+^docs$

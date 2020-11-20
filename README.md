@@ -8,7 +8,9 @@
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 <!-- badges: end -->
 
-This package implements paper "Functional Group Bridge for Simultaneous Regression and Support Estimation" [[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)]
+> This package implements paper "Functional Group Bridge for Simultaneous Regression and Support Estimation" 
+
+[[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)]
 
 ![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/docs/cover.png)
 
