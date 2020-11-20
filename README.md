@@ -4,10 +4,11 @@
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/dipterix/spfda.svg?branch=master)](https://travis-ci.org/dipterix/spfda)
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
+[![licence-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 <!-- badges: end -->
 
-Functional Group Bridge for Simultaneous Regression and Support Estimation [PDF](https://arxiv.org/abs/2006.10163)
+This package implements paper "Functional Group Bridge for Simultaneous Regression and Support Estimation" [[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)]
 
 ![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/docs/cover.png)
 
@@ -49,5 +50,12 @@ print(fit)
 coefficients(fit)
 ```
 
+## Citation
 
+Use `citation('spfda')` to generate citation information.
+
+```
+Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for
+  Simultaneous Regression and Support Estimation.
+```
 
