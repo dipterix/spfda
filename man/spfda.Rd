@@ -21,9 +21,9 @@ spfda(
 )
 }
 \arguments{
-\item{Y}{Numeric \mjseqn{n \\times T} matrix, response function.}
+\item{Y}{Numeric \mjseqn{n \times T} matrix, response function.}
 
-\item{X}{Numeric \mjseqn{n \\times p} matrix, design matrix}
+\item{X}{Numeric \mjseqn{n \times p} matrix, design matrix}
 
 \item{lambda}{Regularization parameter \mjseqn{\gamma}}
 
@@ -36,7 +36,7 @@ default is 'auto'}
 
 \item{alpha}{Bridge parameter \mjseqn{\alpha}, default is \code{0.5}}
 
-\item{W}{A \mjseqn{T \\times T} weight matrix or \code{NULL}
+\item{W}{A \mjseqn{T \times T} weight matrix or \code{NULL}
 (identity matrix); default is \code{NULL}}
 
 \item{init}{Initial \mjseqn{\gamma}; default is \code{NULL}}
@@ -65,7 +65,7 @@ A \code{spfda.model} object (environment) with following elements:
 }
 }
 \description{
-\loadmathjax{}Function-on-scalar regression model, denote
+\loadmathjax Function-on-scalar regression model, denote
 \mjseqn{n} as total number of observations, \mjseqn{p} the number of
 coefficients, \mjseqn{K} as the number of B-splines, \mjseqn{T} as total
 time points.

@@ -15,7 +15,8 @@ BugReports: https://github.com/dipterix/spfda/issues
 Imports:
     stats,
     splines,
-    graphics,
+    graphics
+Suggests:
     mathjaxr
 Encoding: UTF-8
 LazyData: true

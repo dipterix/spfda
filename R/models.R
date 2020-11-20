@@ -2,20 +2,20 @@
 
 #' @title Sparse Function-on-scalar Regression with Group Bridge Penalty
 #'
-#' @description \loadmathjax{}Function-on-scalar regression model, denote
+#' @description \loadmathjax Function-on-scalar regression model, denote
 #' \mjseqn{n} as total number of observations, \mjseqn{p} the number of
 #' coefficients, \mjseqn{K} as the number of B-splines, \mjseqn{T} as total
 #' time points.
 #'
-#' @param Y Numeric \mjseqn{n \\times T} matrix, response function.
-#' @param X Numeric \mjseqn{n \\times p} matrix, design matrix
+#' @param Y Numeric \mjseqn{n \times T} matrix, response function.
+#' @param X Numeric \mjseqn{n \times p} matrix, design matrix
 #' @param time Time domain, numerical length of \mjseqn{T}
 #' @param nsp Integer or 'auto', number of B-splines \mjseqn{K};
 #' default is 'auto'
 #' @param ord B-spline order, default is \code{4}; must be \mjseqn{\geq 3}
 #' @param lambda Regularization parameter \mjseqn{\gamma}
 #' @param alpha Bridge parameter \mjseqn{\alpha}, default is \code{0.5}
-#' @param W A \mjseqn{T \\times T} weight matrix or \code{NULL}
+#' @param W A \mjseqn{T \times T} weight matrix or \code{NULL}
 #' (identity matrix); default is \code{NULL}
 #' @param init Initial \mjseqn{\gamma}; default is \code{NULL}
 #' @param max_iter Number of outer iterations
