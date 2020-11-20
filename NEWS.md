@@ -1,4 +1,4 @@
-spfda 1.0
+spfda 0.9.0
 =======
 
 * Initial private beta release!
