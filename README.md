@@ -2,7 +2,7 @@
 # R Package "spfda" - Sparse function-on-scalar regression
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/dipterix/spfda.svg?branch=master)](https://travis-ci.com/dipterix/spfda)
+[![Travis build status](https://travis-ci.org/dipterix/spfda.svg?branch=master)](https://travis-ci.org/dipterix/spfda)
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
 [![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
