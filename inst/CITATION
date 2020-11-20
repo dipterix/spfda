@@ -1,0 +1,12 @@
+citHeader("To cite spfda in publications use:")
+
+citEntry(entry = "Article",
+         title        = "Functional Group Bridge for Simultaneous Regression and Support Estimation",
+         author       = personList(as.person("Zhengjia Wang"),
+                                   as.person("John F. Magnotti"),
+                                   as.person("Michael S. Beauchamp"),
+                                   as.person("Meng Li")),
+         journal      = "arXiv",
+         year         = "2020",
+         textVersion  = "Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for Simultaneous Regression and Support Estimation."
+)
