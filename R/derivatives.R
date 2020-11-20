@@ -1,18 +1,18 @@
 # calculate log-likelihood
 logLik_old.spfda.model <- function (object, ...) {
-  res = object$Y - object$predict(object$X)
-  W = object$W
-  p = ncol(object$X)
-  N = nrow(res)
-  nT = ncol(res)
-  K = object$K
-  coef = object$get_coef()
+  res <- object$Y - object$predict(object$X)
+  W <- object$W
+  p <- ncol(object$X)
+  N <- nrow(res)
+  nT <- ncol(res)
+  K <- object$K
+  coef <- object$get_coef()
 
   if(!is.matrix(W)){
-    det_w = 1
+    det_w <- 1
   }else{
-    det_w = det(W)
-    res = res %*% W
+    det_w <- det(W)
+    res <- res %*% W
   }
 
   # assume each row of res is uncor
@@ -22,8 +22,8 @@ logLik_old.spfda.model <- function (object, ...) {
 
   # calculate df
 
-  df = sum(coef != 0)
-  df_alt = sum(abs(coef) > 0.001 * max(abs(coef)))
+  df <- sum(coef != 0)
+  df_alt <- sum(abs(coef) > 0.001 * max(abs(coef)))
 
   attr(val, "nall") <- N
   attr(val, "nobs") <- N
@@ -37,10 +37,10 @@ logLik_old.spfda.model <- function (object, ...) {
 
 #' @export
 BIC.spfda.model <- function(object, nu = 0.5, ...){
-  loglik = logLik.spfda.model(object, ...)
-  df = attr(loglik, "df")
-  nobs = attr(loglik, "nobs")
-  pK = attr(loglik, "pK")
+  loglik <- logLik.spfda.model(object, ...)
+  df <- attr(loglik, "df")
+  nobs <- attr(loglik, "nobs")
+  pK <- attr(loglik, "pK")
   as.numeric((-2 * loglik + df * log(nobs) + nu * df * log(pK)) / nobs)
 }
 
@@ -49,28 +49,28 @@ BIC.spfda.model <- function(object, nu = 0.5, ...){
 # calculate log-likelihood
 #' @export
 logLik.spfda.model <- function (object, ...) {
-  res = object$Y - object$predict(object$X)
-  W = object$W
-  p = ncol(object$X)
-  N = nrow(res)
-  nT = ncol(res)
-  K = object$K
-  coef = object$get_coef()
+  res <- object$Y - object$predict(object$X)
+  W <- object$W
+  p <- ncol(object$X)
+  N <- nrow(res)
+  nT <- ncol(res)
+  K <- object$K
+  coef <- object$get_coef()
 
   if(!is.matrix(W)){
-    W = diag(1, nrow = nT, ncol = nT)
+    W <- diag(1, nrow = nT, ncol = nT)
   }else{
-    res = res %*% W
+    res <- res %*% W
   }
 
   # estimate sigma^2
-  wtw = tcrossprod(W, W)
-  gamma_ols = solve(crossprod(object$X, object$X)) %*% crossprod(object$X, object$Y) %*%
+  wtw <- tcrossprod(W, W)
+  gamma_ols <- solve(crossprod(object$X, object$X)) %*% crossprod(object$X, object$Y) %*%
     wtw %*% t(object$B) %*% solve(object$B %*% wtw %*% t(object$B))
-  res_ols = (object$Y - object$X %*% gamma_ols %*% object$B) %*% W
+  res_ols <- (object$Y - object$X %*% gamma_ols %*% object$B) %*% W
 
-  sigma = sqrt(mean(res_ols^2)); #sigma = 1
-  res = res / (sigma)
+  sigma <- sqrt(mean(res_ols^2)); #sigma <- 1
+  res <- res / (sigma)
 
   # assume each row of res is uncor
   val <- sum(apply(res, 1, function(x){
@@ -79,8 +79,8 @@ logLik.spfda.model <- function (object, ...) {
 
   # calculate df
 
-  df = sum(coef != 0)
-  df_alt = sum(abs(coef) > 0.001 * max(abs(coef)))
+  df <- sum(coef != 0)
+  df_alt <- sum(abs(coef) > 0.001 * max(abs(coef)))
 
   attr(val, "nall") <- N
   attr(val, "nobs") <- N

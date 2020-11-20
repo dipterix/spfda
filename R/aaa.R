@@ -39,7 +39,7 @@ str2lang <- function (s) {
 }
 
 getAlphaRGB <- function (colname, alpha) {
-  c = col2rgb(colname)
+  c <- col2rgb(colname)
   rgb(t(c), alpha = alpha, maxColorValue = 255)
 }
 

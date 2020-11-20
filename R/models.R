@@ -101,9 +101,9 @@ spfda <- function(
 
   # if(alpha == 1){
   #   warning("The model is essentially Lasso when ", sQuote("alpha=1"), ". The implementation might be buggy under this situation.")
-  #   res = fda_glasso(Y = Y, X = X, time = time, nknots = nsp, lambda = lambda, W = W, init = init, max_iter = max_iter, ord = ord, ...)
+  #   res <- fda_glasso(Y = Y, X = X, time = time, nknots = nsp, lambda = lambda, W = W, init = init, max_iter = max_iter, ord = ord, ...)
   # }else{
-  res = fos_gp_bridge(Y = Y, X = X, time = time,
+  res <- fos_gp_bridge(Y = Y, X = X, time = time,
                       nknots = nsp, lambda = lambda, alpha = alpha,
                       W = W, init = init, ord = ord,
                       max_iter = max_iter, inner_iter = inner_iter, CI = CI, ...)
@@ -113,39 +113,39 @@ spfda <- function(
   # Result need to be edited
   # list(gamma = gamma, eta = eta, B = B, mse = (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2))))
 
-  env = new.env(parent = baseenv())
-  env$gamma = res$eta
-  env$knots = c(rep(time[1], ord-1), seq(time[1], time[length(time)], length.out = nsp - ord), rep(time[length(time)], ord-1))
-  env$generate_splines = function(.time){
+  env <- new.env(parent = baseenv())
+  env$gamma <- res$eta
+  env$knots <- c(rep(time[1], ord-1), seq(time[1], time[length(time)], length.out = nsp - ord), rep(time[length(time)], ord-1))
+  env$generate_splines <- function(.time){
     if(missing(.time) || !length(.time)){
       .time <- time
     }
     return(t(splineDesign(env$knots, .time, ord = ord)))
   }
-  env$B = res$B
-  env$error = res$mse
-  env$predict = function(new_data, .time = NULL){
-    B = env$generate_splines(.time)
+  env$B <- res$B
+  env$error <- res$mse
+  env$predict <- function(new_data, .time = NULL){
+    B <- env$generate_splines(.time)
     new_data %*% env$gamma %*% B
   }
-  env$get_coef = function(.time = NULL){
+  env$get_coef <- function(.time = NULL){
     env$gamma %*% env$generate_splines(.time)
   }
 
-  env$raw = res
-  env$X = X
-  env$Y = Y
-  env$time = time
-  env$W = W
+  env$raw <- res
+  env$X <- X
+  env$Y <- Y
+  env$time <- time
+  env$W <- W
 
-  env$K = nsp
-  env$lambda = lambda
-  env$alpha = alpha
-  env$initial_gamma = init
-  env$max_iter = max_iter
+  env$K <- nsp
+  env$lambda <- lambda
+  env$alpha <- alpha
+  env$initial_gamma <- init
+  env$max_iter <- max_iter
   env$CI <- res$CI
 
-  class(env) = c('spfda.model.gbridge', 'spfda.model')
+  class(env) <- c('spfda.model.gbridge', 'spfda.model')
 
 
   # calculate BIC and log-lik

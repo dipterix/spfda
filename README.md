@@ -4,7 +4,7 @@
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.com/dipterix/spfda.svg?branch=master)](https://travis-ci.com/dipterix/spfda)
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
-[![licence-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
+[![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 <!-- badges: end -->
 
