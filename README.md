@@ -9,7 +9,7 @@
 
 Functional Group Bridge for Simultaneous Regression and Support Estimation [PDF](https://arxiv.org/abs/2006.10163)
 
-![Demo example](./cover.png)
+![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/docs/cover.png)
 
 ## Installation
 
