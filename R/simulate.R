@@ -2,10 +2,9 @@
 #' @param n Total number of observations
 #' @param n_timepoints Total number of time points
 #' @param err error level
-#' @param seed random seed
 #' @return A list of data generated
 #' @export
-spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1, seed = 1){
+spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1){
 
   n_coef <- 3
   beta1 <- function(t){0}
@@ -29,8 +28,6 @@ spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1, seed = 1){
     sapply(time, f)
   }))
 
-  set.seed(seed)
-  on.exit(set.seed(-1), add = TRUE, after = TRUE)
   # X: n x 3 rnorm data
   X <- rnorm(n * n_coef)
   dim(X) <- c(n, n_coef)

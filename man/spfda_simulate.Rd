@@ -4,7 +4,7 @@
 \alias{spfda_simulate}
 \title{Generate toy example data}
 \usage{
-spfda_simulate(n = 1000, n_timepoints = 100, err = 1, seed = 1)
+spfda_simulate(n = 1000, n_timepoints = 100, err = 1)
 }
 \arguments{
 \item{n}{Total number of observations}
@@ -12,8 +12,6 @@ spfda_simulate(n = 1000, n_timepoints = 100, err = 1, seed = 1)
 \item{n_timepoints}{Total number of time points}
 
 \item{err}{error level}
-
-\item{seed}{random seed}
 }
 \value{
 A list of data generated
