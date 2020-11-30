@@ -2,9 +2,10 @@
 # R Package "spfda" - Sparse function-on-scalar regression
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/dipterix/spfda.svg?branch=master)](https://travis-ci.org/dipterix/spfda)
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
 [![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
+[![Travis build status](https://travis-ci.org/dipterix/spfda.svg?branch=master)](https://travis-ci.org/dipterix/spfda)
+[![R-check](https://github.com/dipterix/spfda/workflows/R-CMD-check/badge.svg)](https://github.com/dipterix/spfda/actions)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 <!-- badges: end -->
 
@@ -16,13 +17,13 @@
 
 ## Installation
 
-You can install the released version of `spfda` from [CRAN](https://CRAN.R-project.org) with:
+You can install the **released** version of `spfda` ![CRAN-version](https://www.r-pkg.org/badges/version/spfda) from [CRAN](https://CRAN.R-project.org/package=spfda) with:
 
 ``` r
 install.packages("spfda")
 ```
 
-The development version can be installed via
+The **experimental** version can be installed via
 
 ``` r
 # install.packages("remotes")
@@ -54,7 +55,7 @@ coefficients(fit)
 
 ## Citation
 
-Use `citation('spfda')` to generate citation information.
+Use `citation('spfda')` to generate citation information, or check [this link](https://arxiv.org/abs/2006.10163).
 
 ```
 Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for

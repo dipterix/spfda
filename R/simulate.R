@@ -1,8 +1,13 @@
-#' @title Generate toy example data
+#' @title Generates toy example data
+#' @description Synthesized functional signals with heterogeneous error. The
+#' underlying three coefficients correspond to 'dense', 'global sparse', and
+#' 'local sparse' functions. See \url{https://arxiv.org/abs/2006.10163} for
+#' detailed configurations.
 #' @param n Total number of observations
 #' @param n_timepoints Total number of time points
-#' @param err error level
-#' @return A list of data generated
+#' @param err Error magnitude
+#' @return A list of data generated: \code{X} is scalar predictor, \code{Y} is
+#' functional response.
 #' @export
 spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1){
 
