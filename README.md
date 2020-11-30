@@ -13,7 +13,7 @@
 
 [[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)]
 
-![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/docs/cover.png)
+![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/inst/cover.png)
 
 ## Installation
 
