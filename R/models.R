@@ -74,7 +74,7 @@
 spfda <- function(
   Y, X, lambda, time = seq(0, 1, length.out = ncol(Y)), nsp = 'auto', ord = 4,
   alpha = 0.5, W = NULL, init = NULL, max_iter = 50,
-  inner_iter = 5, CI = FALSE, ...
+  inner_iter = 50, CI = FALSE, ...
 ){
   if(alpha <= 0 || alpha > 1){
     stop("alpha must be in (0,1]")

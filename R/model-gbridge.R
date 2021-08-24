@@ -48,7 +48,7 @@ fos_gp_bridge <- function(
   # This is important, rho must be large enough, but large initial rho will result in
   # slowing down optimization. Gradually increase rho
   # 60 is just randomly chosen. might need to check whether 60 is proper ?
-  rhos <- seq(-1, 3.5 * log10(svd_x$d[[1]]), length.out = max_iter)
+  rhos <- seq(0, 3.5 * log10(svd_x$d[[1]]), length.out = max_iter)
   rhos <- 10^rhos * n
     # seq(0.1, 60 * (svd_x$d[[1]])^2, length.out = max_iter) * n
   inner_iters <- ceiling(inner_iter / (exp(1) - 1) * exp(seq_len(max_iter) / max_iter))
@@ -87,7 +87,7 @@ fos_gp_bridge <- function(
     # No early termination because rho is increasing
     # early termination might result in sparsity not recovered
 
-    # mse <- (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2)))
+    mse <- (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2)))
     # print(mse)
     # if(ii > max_iter / 2 && last_mse * 0.9 < mse && mse < last_mse ){
     #   break

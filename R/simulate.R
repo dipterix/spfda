@@ -9,21 +9,24 @@
 #' @return A list of data generated: \code{X} is scalar predictor, \code{Y} is
 #' functional response.
 #' @export
-spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1){
+spfda_simulate <- function(n = 1000, n_timepoints = 100, err = 1, scale = c(1,1,1)){
 
   n_coef <- 3
-  beta1 <- function(t){0}
-  beta2 <- function(t){sin(pi * t)}
+  beta1 <- function(t){0 * scale[1]}
+  beta2 <- function(t){sin(pi * t) * scale[2]}
   beta3 <- function(t){
-    if(t < 0.2 || t >= 0.8){
-      return(0)
-    }else if (t >= 0.4 && t < 0.6){
-      return(1)
-    }else if (t < 0.4){
-      return(sin((5 * t - 1) * pi / 2))
-    }else{
-      return(sin((5 * t - 2) * pi / 2))
+    tmp <- function(){
+      if(t < 0.2 || t >= 0.8){
+        return(0)
+      }else if (t >= 0.4 && t < 0.6){
+        return(1)
+      }else if (t < 0.4){
+        return(sin((5 * t - 1) * pi / 2))
+      }else{
+        return(sin((5 * t - 2) * pi / 2))
+      }
     }
+    tmp() * scale[3]
   }
 
   # Generate discrete coefficients
