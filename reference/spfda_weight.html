@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • spfda</title>
+<title>Calculates weight matrices — spfda_weight • spfda</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Calculates weight matrices — spfda_weight" />
+<meta property="og:description" content="Calculates weight matrices" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,54 +109,45 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Calculates weight matrices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dipterix/spfda/blob/master/R/weights.R'><code>R/weights.R</code></a></small>
+    <div class="hidden name"><code>spfda_weight.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Calculates weight matrices</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>spfda_weight</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>Y</span>, <span class='va'>bandwidth</span>, <span class='va'>part</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="spfda.html">spfda()</a></code> </p>
-        </td>
-        <td><p>Sparse Function-on-scalar Regression with Group Bridge Penalty</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spfda_simulate.html">spfda_simulate()</a></code> </p>
-        </td>
-        <td><p>Generates toy example data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spfda_weight.html">spfda_weight()</a></code> </p>
-        </td>
-        <td><p>Calculates weight matrices</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>X</th>
+      <td><p>design matrix</p></td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td><p>response matrix</p></td>
+    </tr>
+    <tr>
+      <th>bandwidth</th>
+      <td><p>numeric band-width</p></td>
+    </tr>
+    <tr>
+      <th>part</th>
+      <td><p>list of time point boundaries</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>the weight matrix</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

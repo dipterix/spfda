@@ -126,7 +126,7 @@ underlying three coefficients correspond to 'dense', 'global sparse', and
 detailed configurations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spfda_simulate</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1000</span>, n_timepoints <span class='op'>=</span> <span class='fl'>100</span>, err <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>spfda_simulate</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1000</span>, n_timepoints <span class='op'>=</span> <span class='fl'>100</span>, err <span class='op'>=</span> <span class='fl'>1</span>, scale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +142,10 @@ detailed configurations.</p>
     <tr>
       <th>err</th>
       <td><p>Error magnitude</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>the scale of coefficients length of 1 or 3.</p></td>
     </tr>
     </table>
 
