@@ -1,3 +1,9 @@
+#' Calculates weight matrices
+#' @param X design matrix
+#' @param Y response matrix
+#' @param bandwidth numeric band-width
+#' @param part list of time point boundaries
+#' @return the weight matrix
 #' @export
 spfda_weight <- function(X, Y, bandwidth, part){
   beta_ols <- solve(crossprod(X)) %*% crossprod(X, Y)

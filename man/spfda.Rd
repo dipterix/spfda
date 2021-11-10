@@ -15,7 +15,7 @@ spfda(
   W = NULL,
   init = NULL,
   max_iter = 50,
-  inner_iter = 5,
+  inner_iter = 50,
   CI = FALSE,
   ...
 )

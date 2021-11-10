@@ -6,6 +6,7 @@
 #' @param n Total number of observations
 #' @param n_timepoints Total number of time points
 #' @param err Error magnitude
+#' @param scale the scale of coefficients length of 1 or 3.
 #' @return A list of data generated: \code{X} is scalar predictor, \code{Y} is
 #' functional response.
 #' @export

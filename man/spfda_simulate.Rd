@@ -4,7 +4,7 @@
 \alias{spfda_simulate}
 \title{Generates toy example data}
 \usage{
-spfda_simulate(n = 1000, n_timepoints = 100, err = 1)
+spfda_simulate(n = 1000, n_timepoints = 100, err = 1, scale = c(1, 1, 1))
 }
 \arguments{
 \item{n}{Total number of observations}
@@ -12,6 +12,8 @@ spfda_simulate(n = 1000, n_timepoints = 100, err = 1)
 \item{n_timepoints}{Total number of time points}
 
 \item{err}{Error magnitude}
+
+\item{scale}{the scale of coefficients length of 1 or 3.}
 }
 \value{
 A list of data generated: \code{X} is scalar predictor, \code{Y} is

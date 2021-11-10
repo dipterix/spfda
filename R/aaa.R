@@ -8,6 +8,8 @@
 #' @importFrom stats pnorm
 #' @importFrom stats rnorm
 #' @importFrom stats runif
+#' @importFrom stats kernapply
+#' @importFrom stats kernel
 #'
 #' @importFrom graphics axis
 #' @importFrom graphics matpoints
