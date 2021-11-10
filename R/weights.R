@@ -2,12 +2,12 @@
 spfda_weight <- function(X, Y, bandwidth, part){
   beta_ols <- solve(crossprod(X)) %*% crossprod(X, Y)
   err <- Y - X %*% beta_ols
-  kern <- kernel("fejer", b, r = 2)
+  kern <- kernel("fejer", bandwidth, r = 2)
   err_smoothed <- kernapply(t(err), kern, circular = TRUE)
   t <- seq_len(ncol(Y))
   thetas <- lapply(part, function(idx){
     tha <- sapply(t[idx], function(t0){
-      tmp <- (t-t0) / b
+      tmp <- (t-t0) / bandwidth
       x <- cbind(1, tmp[idx])
       xtx <- crossprod(x)
       thetas <- solve(xtx) %*% crossprod(x, err_smoothed[idx,])

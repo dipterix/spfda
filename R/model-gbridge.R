@@ -13,6 +13,7 @@ fos_gp_bridge <- function(
   if(!length(W) || !is.matrix(W)){
     W <- diag(1, n_timepoints)
   }
+  WT = t(W)
 
   time <- sort(time)
 
@@ -27,12 +28,11 @@ fos_gp_bridge <- function(
   ident_p <- diag(10, p)
 
   xty <- crossprod(X, Y)
-  wwt <- tcrossprod(W, W)
   bw <- B %*% W
   bwwb <- tcrossprod(bw, bw)
 
   if(!length(init) || !is.matrix(init)){
-    init <- (solve(xtx + ident_p) %*% xty %*% wwt %*% t(B) %*% solve(bwwb))
+    init <- (((((solve(xtx + ident_p) %*% xty) %*% W) %*% WT) %*% t(B)) %*% solve(bwwb))
   }
   gamma <- init
 
@@ -52,6 +52,9 @@ fos_gp_bridge <- function(
   rhos <- 10^rhos * n
     # seq(0.1, 60 * (svd_x$d[[1]])^2, length.out = max_iter) * n
   inner_iters <- ceiling(inner_iter / (exp(1) - 1) * exp(seq_len(max_iter) / max_iter))
+
+  vxtywwttbu <- ((((V %*% xty) %*% W) %*% WT) %*% t(B)) %*% U
+  force(vxtywwttbu)
   # ------------ A4 ------------
   # last_mse = Inf
   for(ii in seq_len(max_iter)){
@@ -71,14 +74,19 @@ fos_gp_bridge <- function(
     eta <- xi <- gamma
     theta <- array(0, dim(gamma))
     for(m in seq_len(inner_iters[[ii]])){
-      xi <- t(V) %*% ((V %*% xty %*% wwt %*% t(B) %*% U - theta +
-                        rho * V %*% eta %*% U) / Z) %*% t(U)
-      eta <- xi + 1/rho * t(V) %*% theta %*% t(U)
+      # xi <- (t(V) %*% ((vxtywwttbu - theta +
+      #                   ((rho * V) %*% eta) %*% U) / Z)) %*% t(U)
+      xi <- tcrossprod(
+        crossprod( V,
+                   (vxtywwttbu - theta + ((rho * V) %*% eta) %*% U) / Z),
+        U)
+      # eta <- xi + ((1/rho * t(V)) %*% theta) %*% t(U)
+      eta <- xi + tcrossprod(crossprod(V /rho, theta), U)
       eta_plus <- eta - lambda/rho * D
       eta_minus <- eta + lambda/rho * D
       eta <- eta_plus * (eta_plus > 0) + eta_minus * (eta_minus < 0)
 
-      theta <- theta + rho * V %*% (xi - eta) %*% U
+      theta <- theta + ((rho * V) %*% (xi - eta)) %*% U
     }
 
     gamma <- eta
@@ -87,7 +95,7 @@ fos_gp_bridge <- function(
     # No early termination because rho is increasing
     # early termination might result in sparsity not recovered
 
-    mse <- (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2)))
+    # mse <- (sqrt(mean((Y - X %*% (eta %*% B)) ^ 2)))
     # print(mse)
     # if(ii > max_iter / 2 && last_mse * 0.9 < mse && mse < last_mse ){
     #   break
