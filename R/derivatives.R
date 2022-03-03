@@ -48,7 +48,7 @@ BIC.spfda.model <- function(object, nu = 0.5, ...){
 
 # calculate log-likelihood
 #' @export
-logLik.spfda.model <- function (object, ...) {
+logLik.spfda.model <- function (object, eps = "auto", ...) {
   res <- object$Y - object$predict(object$X)
   W <- object$W
   p <- ncol(object$X)
@@ -80,7 +80,10 @@ logLik.spfda.model <- function (object, ...) {
   # calculate df
 
   df <- sum(coef != 0)
-  df_alt <- sum(abs(coef) > 0.001 * max(abs(coef)))
+  if(identical(eps, "auto")){
+    eps <- 0.001 * max(abs(coef))
+  }
+  df_alt <- sum(abs(coef) > eps)
 
   attr(val, "nall") <- N
   attr(val, "nobs") <- N
