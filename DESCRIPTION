@@ -22,3 +22,6 @@ LazyData: true
 RoxygenNote: 7.1.2
 RdMacros: mathjaxr
 Language: en-US
+Suggests: 
+    grpreg,
+    refund
