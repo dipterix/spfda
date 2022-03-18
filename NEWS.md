@@ -1,8 +1,15 @@
+spfda 0.9.1
+=======
+
+* Added functions to calculate weights
+* Simplified algorithm, lowered computation complexity 
+* Allow threshold when calculating `EBIC`
+* Added `get_se` in result object
+* Added comparing methods
+
+
 spfda 0.9.0
 =======
 
-* Initial private beta release!
+* Initial beta release!
 
-This version provides model without random effect mentioned in the paper. I'm 
-thinking about generalized ways to implement weight matrix estimation. It will
-be in the next patch version.

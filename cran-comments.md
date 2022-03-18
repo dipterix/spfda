@@ -1,14 +1,8 @@
-# spfda 1.0
+# spfda 0.9.1
 
-First commit failed because:
+Self-checking:
 
-```
-Please reduce the length of the title to less than 65 characters.
-Please do not set a seed to a specific number within a function.
-```
-
-* Reduced name to 55 characters
-* Removed seed
+0 errors  | 0 warnings  | 0 notes 
 
 
 
