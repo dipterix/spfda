@@ -132,6 +132,10 @@ spfda <- function(
     env$gamma %*% env$generate_splines(.time)
   }
 
+  env$get_se = function() {
+    res$f_sd
+  }
+
   env$raw <- res
   env$X <- X
   env$Y <- Y
