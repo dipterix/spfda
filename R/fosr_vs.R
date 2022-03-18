@@ -16,28 +16,28 @@ fosr_vs <- function (formula, data, nbasis = 10,
     stop("Please install `refund` package first by running\n  install.packages('refund')")
   }
 
-  cl = match.call()
-  mf = match.call(expand.dots = FALSE)
-  m = match(c("formula", "data"), names(mf), 0)
-  mf = mf[c(1, m)]
+  cl <- match.call()
+  mf <- match.call(expand.dots = FALSE)
+  m <- match(c("formula", "data"), names(mf), 0)
+  mf <- mf[c(1, m)]
   mf$drop.unused.levels <- TRUE
-  mf[[1]] = as.name("model.frame")
-  mf = eval.parent(mf)
-  Y = stats::model.response(mf)
-  W.des = stats::model.matrix(formula, data = mf)
-  N = dim(Y)[1]
-  D = dim(Y)[2]
-  K = dim(W.des)[2]
-  Theta = splines::bs(1:D, df = nbasis, intercept = TRUE, degree = 3)
-  Z = kronecker(W.des, Theta)
-  Y.vec = as.vector(t(Y))
+  mf[[1]] <- as.name("model.frame")
+  mf <- eval.parent(mf)
+  Y <- stats::model.response(mf)
+  W.des <- stats::model.matrix(formula, data = mf)
+  N <- dim(Y)[1]
+  D <- dim(Y)[2]
+  K <- dim(W.des)[2]
+  Theta <- splines::bs(1:D, df = nbasis, intercept = TRUE, degree = 3)
+  Z <- kronecker(W.des, Theta)
+  Y.vec <- as.vector(t(Y))
   ls <- stats::lm(Y.vec ~ Z + 0)
-  a <- matrix(ls$residuals, nrow = N, ncol = D, byrow = T)
+  a <- matrix(ls$residuals, nrow = N, ncol = D, byrow = TRUE)
   if (D < 15) {
-    b = cov(a)
+    b <- cov(a)
   } else {
-    w <- refund::fpca.sc(a, var = T)
-    b <- Reduce("+", lapply(1:length(w$evalues), function(x) {
+    w <- refund::fpca.sc(a, var = TRUE)
+    b <- Reduce("+", lapply(seq_len(length(w$evalues)), function(x) {
       w$evalues[x] * w$efunctions[, x] %*% t(w$efunctions[, x])
     })) + w$sigma2 * diag(1, D, D)
   }
@@ -65,7 +65,7 @@ fosr_vs <- function (formula, data, nbasis = 10,
   grpreg_ngroups <- unlist(grpreg_ngroups)
 
 
-  group = switch(
+  group <- switch(
     colnames(W.des)[1],
     `(Intercept)` = {
       c(rep(0, nbasis), c(rep(1:(K - 1), each = nbasis)))
@@ -77,16 +77,16 @@ fosr_vs <- function (formula, data, nbasis = 10,
   f <- stats::coef(ls)
   f <- replace(f, which(is.na(f)), 0)
   d <- rep(0, nbasis * K)
-  num.iter = 0
+  num.iter <- 0
   cat("Beginning iterative algorithm \n")
   while (sum((f - d)^2) > epsilon & num.iter <= max.iter_num) {
-    num.iter = num.iter + 1
+    num.iter <- num.iter + 1
     d <- f
     c <- chol(solve(b))
-    Y_new = Y %*% t(c)
-    Theta_new = c %*% Theta
-    Z_new = kronecker(W.des, Theta_new)
-    Y.vecnew = as.vector(t(Y_new))
+    Y_new <- Y %*% t(c)
+    Theta_new <- c %*% Theta
+    Z_new <- kronecker(W.des, Theta_new)
+    Y.vecnew <- as.vector(t(Y_new))
     if (method == "ls") {
       ls <- stats::lm(Y.vecnew ~ Z_new)
       f <- as.vector(stats::coef(ls))[-1]
@@ -101,19 +101,19 @@ fosr_vs <- function (formula, data, nbasis = 10,
 
       f <- as.vector(stats::coef(cvlam))[-1]
     }
-    a <- matrix(Y.vec - Z %*% f, nrow = N, ncol = D, byrow = T)
+    a <- matrix(Y.vec - Z %*% f, nrow = N, ncol = D, byrow = TRUE)
     if (D < 15) {
-      b = cov(a)
+      b <- cov(a)
     } else {
-      w <- refund::fpca.sc(a, var = T)
-      b <- Reduce("+", lapply(1:length(w$evalues), function(x) {
+      w <- refund::fpca.sc(a, var = TRUE)
+      b <- Reduce("+", lapply(seq_len(length(w$evalues)), function(x) {
         w$evalues[x] * w$efunctions[, x] %*% t(w$efunctions[, x])
       })) + w$sigma2 * diag(1, D, D)
     }
     if (num.iter%%10 == 1)
       cat(".")
   }
-  B <- matrix(f, nrow = K, byrow = T)
+  B <- matrix(f, nrow = K, byrow = TRUE)
   est <- B %*% t(Theta)
   rownames(est) <- colnames(W.des)
   fitted <- W.des %*% est

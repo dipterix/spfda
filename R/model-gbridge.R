@@ -13,7 +13,7 @@ fos_gp_bridge <- function(
   if(!length(W) || !is.matrix(W)){
     W <- diag(1, n_timepoints)
   }
-  WT = t(W)
+  WT <- t(W)
 
   time <- sort(time)
 

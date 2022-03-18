@@ -16,6 +16,7 @@
 #' @importFrom graphics polygon
 #'
 #' @importFrom splines splineDesign
+#' @importFrom mathjaxr preview_rd
 NULL
 
 str2lang_alt <- function (s) {
