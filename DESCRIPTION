@@ -10,7 +10,7 @@ Authors@R: c(
 Description: Implements a group-bridge penalized function-on-scalar regression
     model proposed by Wang et al. (2020) <arXiv:2006.10163>, to simultaneously
     estimate functional coefficient and recover the local sparsity.
-URL: https://github.com/dipterix/spfda, https://dipterix.github.io/spfda/
+URL: https://github.com/dipterix/spfda, http://dipterix.org/spfda/
 BugReports: https://github.com/dipterix/spfda/issues
 Imports:
     stats,
