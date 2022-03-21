@@ -4,14 +4,13 @@
 <!-- badges: start -->
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
 [![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
-[![Travis build status](https://travis-ci.org/dipterix/spfda.svg?branch=master)](https://travis-ci.org/dipterix/spfda)
 [![R-check](https://github.com/dipterix/spfda/workflows/R-CMD-check/badge.svg)](https://github.com/dipterix/spfda/actions)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 <!-- badges: end -->
 
 > This package implements paper "Functional Group Bridge for Simultaneous Regression and Support Estimation" 
 
-[[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)]
+[[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)] [[Examples](https://doi.org/10.5281/zenodo.6363319)]
 
 ![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/inst/cover.png)
 
