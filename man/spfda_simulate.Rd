@@ -22,6 +22,6 @@ functional response.
 \description{
 Synthesized functional signals with heterogeneous error. The
 underlying three coefficients correspond to 'dense', 'global sparse', and
-'local sparse' functions. See \url{https://doi.org/10.1111/biom.13684} for
+'local sparse' functions. See \doi{10.1111/biom.13684} for
 detailed configurations.
 }
