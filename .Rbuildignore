@@ -9,3 +9,5 @@
 ^\.github$
 ^inst/cover\.png$
 ^CRAN-SUBMISSION$
+^_pkgdown\.yml$
+^pkgdown$
