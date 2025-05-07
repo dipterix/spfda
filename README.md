@@ -4,7 +4,6 @@
 <!-- badges: start -->
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
 [![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
-<!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
 [![R-check](https://github.com/dipterix/spfda/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dipterix/spfda/actions/workflows/R-CMD-check.yaml)
 [![DOI-YAEL](https://img.shields.io/badge/DOI-10.1111%2Fbiom.13684-blue?link=https%3A%2F%2Fdoi.org%2F10.1111%2Fbiom.13684)](https://doi.org/10.1111/biom.13684)
 <!-- badges: end -->
