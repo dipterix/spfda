@@ -1,3 +1,8 @@
+spfda 0.9.2
+=======
+
+* Minor fix to address `CRAN` issues
+
 spfda 0.9.1
 =======
 
