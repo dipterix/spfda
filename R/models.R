@@ -39,7 +39,7 @@
 #'
 #'
 #' @details This function implements "Functional Group Bridge for Simultaneous
-#' Regression and Support Estimation" (\url{https://arxiv.org/abs/2006.10163}).
+#' Regression and Support Estimation" (\url{https://doi.org/10.1111/biom.13684}).
 #' The model estimates functional coefficients \mjseqn{\beta(t)} under model
 #' \mjsdeqn{y(t) = X\beta(t) + \epsilon(t)} with B-spline basis expansion
 #' \mjsdeqn{\beta(t) = \gamma B(t) + R(t), } where \mjseqn{ R(t) } is B-spline

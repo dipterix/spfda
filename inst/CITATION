@@ -1,12 +1,17 @@
-citHeader("To cite spfda in publications use:")
-
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
          title        = "Functional Group Bridge for Simultaneous Regression and Support Estimation",
          author       = personList(as.person("Zhengjia Wang"),
                                    as.person("John F. Magnotti"),
                                    as.person("Michael S. Beauchamp"),
                                    as.person("Meng Li")),
-         journal      = "arXiv",
-         year         = "2020",
-         textVersion  = "Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for Simultaneous Regression and Support Estimation."
+         journal      = "Biometrics",
+         year         = "2022",
+         volume       = "79",
+         number       = "2",
+         pages        = "1226-1238",
+         year         = "2022",
+         month        = "05",
+         doi          = "10.1111/biom.13684",
+         header       = "To cite spfda in publications use:",
+         textVersion  = "Zhengjia Wang, John Magnotti, Michael S. Beauchamp, Meng Li, Functional Group Bridge for Simultaneous Regression and Support Estimation, Biometrics, Volume 79, Issue 2, June 2023, Pages 1226–1238"
 )

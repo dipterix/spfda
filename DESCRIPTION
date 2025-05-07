@@ -8,9 +8,9 @@ Authors@R: c(
     person("Meng", "Li", email = "meng@rice.edu", role = c("aut"), comment = c(ORCID = "0000-0003-2123-2444"))
     )
 Description: Implements a group-bridge penalized function-on-scalar regression
-    model proposed by Wang et al. (2020) <arXiv:2006.10163>, to simultaneously
+    model proposed by Wang et al. (2023) <doi:10.1111/biom.13684>, to simultaneously
     estimate functional coefficient and recover the local sparsity.
-URL: https://github.com/dipterix/spfda, http://dipterix.org/spfda/, https://dipterix.org/spfda/
+URL: https://github.com/dipterix/spfda, https://dipterix.org/spfda/
 BugReports: https://github.com/dipterix/spfda/issues
 Imports:
     stats,

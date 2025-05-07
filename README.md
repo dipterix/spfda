@@ -4,13 +4,14 @@
 <!-- badges: start -->
 [![CRAN-version](https://www.r-pkg.org/badges/version/spfda)](https://CRAN.R-project.org/package=spfda)
 [![license-MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/dipterix/spfda/blob/master/LICENSE)
-[![R-check](https://github.com/dipterix/spfda/workflows/R-CMD-check/badge.svg)](https://github.com/dipterix/spfda/actions)
 <!-- [![Cran-version](http://cranlogs.r-pkg.org/badges/grand-total/spfda)](https://CRAN.R-project.org/package=spfda) -->
+[![R-check](https://github.com/dipterix/spfda/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dipterix/spfda/actions/workflows/R-CMD-check.yaml)
+[![DOI-YAEL](https://img.shields.io/badge/DOI-10.1111%2Fbiom.13684-blue?link=https%3A%2F%2Fdoi.org%2F10.1111%2Fbiom.13684)](https://doi.org/10.1111/biom.13684)
 <!-- badges: end -->
 
 > This package implements paper "Functional Group Bridge for Simultaneous Regression and Support Estimation" 
 
-[[PDF](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)] [[Examples](https://doi.org/10.5281/zenodo.6363319)]
+[[Preprint](https://arxiv.org/abs/2006.10163)] [[Github](https://github.com/dipterix/spfda)] [[CRAN](https://cran.r-project.org/package=spfda)] [[Examples](https://doi.org/10.5281/zenodo.6363319)]
 
 ![Demo example](https://raw.githubusercontent.com/dipterix/spfda/master/inst/cover.png)
 
@@ -54,10 +55,12 @@ coefficients(fit)
 
 ## Citation
 
-Use `citation('spfda')` to generate citation information, or check [this link](https://arxiv.org/abs/2006.10163).
+Use `citation('spfda')` to generate citation information, or check [this link](https://doi.org/10.1111/biom.13684).
 
 ```
-Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for
-  Simultaneous Regression and Support Estimation.
+Zhengjia Wang, John Magnotti, Michael S. Beauchamp, Meng Li, 
+  Functional Group Bridge for Simultaneous Regression and Support Estimation, 
+  Biometrics, Volume 79, Issue 2, June 2023, Pages 1226–1238, 
+  https://doi.org/10.1111/biom.13684
 ```
 

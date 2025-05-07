@@ -1,7 +1,7 @@
 #' @title Generates toy example data
 #' @description Synthesized functional signals with heterogeneous error. The
 #' underlying three coefficients correspond to 'dense', 'global sparse', and
-#' 'local sparse' functions. See \url{https://arxiv.org/abs/2006.10163} for
+#' 'local sparse' functions. See \url{https://doi.org/10.1111/biom.13684} for
 #' detailed configurations.
 #' @param n Total number of observations
 #' @param n_timepoints Total number of time points
